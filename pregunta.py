@@ -76,4 +76,3 @@ def ingest_data():
 
 
     return df
-W
