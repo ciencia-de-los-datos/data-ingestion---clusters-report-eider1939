@@ -19,7 +19,8 @@ def remove_space(data):
         for line in data[i]:
             if line != "" and line != " ":
                 line=line.replace('_', ' ')
-                data_fila.append(line.strip())
+                line=line.strip()
+                data_fila.append(line)
         data_sin_espacios.append(data_fila)
     return data_sin_espacios
 
@@ -66,25 +67,13 @@ def ingest_data():
     df['porcentaje_de_palabras_clave']=df['porcentaje_de_palabras_clave'].str.replace(r"\s\%", '', regex=True).astype(float)
     
     #eliminacion de espacios en la columna principales_palabras_clave
+    df['principales_palabras_clave'] = df['principales_palabras_clave'].map(lambda x: x.strip())
     df['principales_palabras_clave'] = df['principales_palabras_clave'].map(lambda x: x.replace('   ', ' '))
     df['principales_palabras_clave'] = df['principales_palabras_clave'].map(lambda x: x.replace('   ', ' '))
     df['principales_palabras_clave'] = df['principales_palabras_clave'].map(lambda x: x.replace('  ', ' '))
-    df['principales_palabras_clave'] = df['principales_palabras_clave'].map(lambda x: x.replace('.', ''))
+    df['principales_palabras_clave'] = df['principales_palabras_clave'].map(lambda x: x.replace('.',''))
+
+
 
     return df
-
-#print(ingest_data())
-
-print(
-    ingest_data().principales_palabras_clave.to_list()[7]
-    == "genetic algorithm, demand-side management, energy-saving, hybrid electric system (hes), wind turbine blade, data-driven modelling, simulated annealing, solar forecasting, geographic information system, renewable energy system, cogeneration"
-)
-#print(
- #   ingest_data().principales_palabras_clave.to_list()[7])
-
-#text_1="genetic algorithm, demand-side management, energy-saving, hybrid electric system (hes), wind turbine blade, data-driven modelling, simulated annealing, solar forecasting, geographic information system, renewable energy system, cogeneration"
-text_1=ingest_data().principales_palabras_clave.to_list()[7]
-text_2="genetic algorithm, demand-side management, energy-saving, hybrid electric system (hes), wind turbine blade, data-driven modelling, simulated annealing, solar forecasting, geographic information system, renewable energy system, cogeneration"
-print(text_1)
-print(text_2)
-print(text_1==text_2)
+W
